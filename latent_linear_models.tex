@@ -1,0 +1,106 @@
+\chapter{Latent linear models}
+\section{Factor Analysis}
+\begin{equation}
+p(z_i) = N(z_i|\mu_0, \Sigma_0)
+\end{equation}
+
+\begin{equation}
+p(x_i|z_i,\theta) = N(x_i|Wz_i + \mu, \Psi)
+\end{equation}
+
+\begin{equation}
+p(x_i|\theta) = 
+\int N(x_i|Wz_i +\mu, \Psi)N(z_i|\mu_0, \Sigma_0)dz_i)
+= N(x_i|W\mu_0 +\mu, \Psi + W\Sigma_0W^T)
+\end{equation}
+
+\begin{equation}
+cov[x|\theta] = WW^T + \Psi
+\end{equation}
+
+\subsection{隐变量推理}
+\begin{equation}
+p(z_i|x_i, \theta) = N(z_i|m_i, \Sigma)
+\end{equation}
+
+\begin{equation}
+\Sigma \triangleq (\Sigma_0^{-1} + W^T\Psi^{-1}W)^{-1}
+\end{equation}
+
+\begin{equation}
+m_i \triangleq \Sigma_i(W^T\Psi^{-1}(x_i - \mu) + \Sigma_0^{-1}\mu_0) 
+\end{equation}
+
+\subsection{混合FA}
+\begin{equation}
+p(x_i|z_i, q_i = k, \theta) = N(x_i|\mu_k + W_kz_i, \Psi)
+\end{equation}
+
+\begin{equation}
+p(z_i|\theta) = N(z_i|0, I)
+\end{equation}
+
+\begin{equation}
+p(q_i|\theta) = Cat(q_i|\pi)
+\end{equation}
+
+\section{PCA}
+\subsection{损失函数}
+\begin{equation}
+J(W,Z) = \frac{1}{N}
+\sum_{n=1}^N||x_n-\hat x_n||^2
+\end{equation}
+
+\begin{equation}
+J(W,Z) = ||X-WZ^T||^2
+\end{equation}
+
+\subsection{EM for PCA}
+
+\begin{equation}
+\widetilde{Z} = (W^TW)^{-1}W^T\widetilde{X}
+\end{equation}
+
+\begin{equation}
+W = \widetilde{X}\widetilde{Z}^T
+(\widetilde{Z}\widetilde{Z}^T)^{-1}
+\end{equation}
+
+\subsection{模型选择}
+\begin{equation}
+E(D, L) = \frac{1}{|D|}\sum_{n=1}^N||x_n - \hat{x}_n||^2
+\end{equation}
+
+
+
+\section{隐维度选择}
+\section{ICA}
+
+\section{因素分析}
+\begin{enumerate}
+\item 隐变量先验
+\begin{equation}
+p(z) = N(z|\mu_0, \Sigma_0)
+\end{equation}
+\item 隐线性模型\\
+类比线性模型$y = w^T\phi(x)$和$\Phi = Wt$, 在隐线性模型中,每一个特征
+由L个隐变量决定,共有M个特征,因此x的参数是一个M*L的矩阵.
+M是特征数,L是隐变量数.
+\begin{equation}
+p(x|z, \theta) = N(Wz + \mu, \Psi)
+\end{equation}
+\end{enumerate}
+
+\section{问题}
+\begin{enumerate}
+\item FA与mixture model的区别?\\
+Fa 是隐变量是独立连续型，混合模型中隐变量是
+one-hot编码,混合模型相当于是无监督的分类问题，即聚类
+问题,服从离散分布。
+\item FA中的隐变量z之间是独立的吗？\\
+不独立，$W^T*W$是z的协方差矩阵，$W*W^T$是x的协方差矩阵
+\item FA与PCA的关系？
+PCA是FA的特例？
+\item PCA不是唯一的，ICA是唯一的？
+\end{enumerate}
+

@@ -1,0 +1,115 @@
+\chapter{Mixture models and the EM algorithm}
+混合模型和图模型都是对高维联合分布的表示,
+图模型通过父节点的关系对高维特征进行分解,混合模型通过
+增加隐变量的方式使得原来不独立的特征可以变得独立.
+\section{混合模型}
+\begin{equation}
+p(x|\theta) = \sum_{k = 1}^K\pi_cp_c(x|\theta) =
+\mathbf{\pi}^T\mathbf{p}
+\end{equation}
+\subsection{混合高斯模型}
+\begin{equation}
+p(x|\theta) = \sum_{k = 1}^K\pi_kN(x|\mu_k, \Sigma_k)
+\end{equation}
+
+\subsection{混合离散分布}
+\subsubsection{多维贝努力(朴素贝叶斯)}
+\begin{equation}
+p(x|\theta) = \sum_{c = 1}^C[\pi_c\prod_{m=1}^M\mu_{cm}^{x_m}(1-\mu_{cm})^{1-x_m}]
+\end{equation}
+\subsubsection{离散分布}
+\begin{equation}
+p(x|\theta) = \sum_{c = 1}^C(\pi_c\prod_{m=1}^M\prod_{k=1}^K\mu_c^{x_mk})
+\end{equation}
+\subsubsection{期望和方差}
+\begin{equation}
+\begin{aligned}
+E[x] = \sum_k\pi_k\mu_k\\
+\end{aligned}
+\end{equation}
+
+\begin{equation}
+\begin{aligned}
+cov[x] = \sum_k\pi_k[\Sigma_k+\mu_k\mu_k^T] - E[x]E[x]^T
+\end{aligned}
+\end{equation}
+上面假设各个特征是相互独立(朴素贝叶斯),在混合模型中即使类内符合
+朴素贝叶斯,混合分布仍然可以表示特征之间的联系, 即特征之间不再独立.
+因此,如果特征之间不独立不符合朴素贝叶斯的条件,可以用混合模型的办法
+将特征变得独立. 网络聚类算法,可否让节点之间变得独立?
+
+\subsection{混合模型聚类}
+\subsubsection{软聚类}
+\begin{equation}
+\gamma_{k} \triangleq p(z = k|x, \theta) = 
+\frac{p(z = k|\theta)p(x|z=k, \theta)}
+{\sum_{j=1}^Kp(z=j|\theta)p(x|z=j, \theta)}
+\label{gamma}
+\end{equation}
+形式上与产生式模型相同,区别在于训练的时候,$z$在混合模型里面是不可见的,
+而在产生式模型里面可以看到$y$(相当于$z$的作用)
+\subsubsection{硬聚类}
+\begin{equation}
+z = \underset{k}{\operatorname{argmax}}r_k = 
+\underset{k} {\operatorname{armax}}[logp(x|z = k,\theta) + logp(z=k|\theta)]
+\end{equation}
+
+\subsection{混合专家(Mixtures of experts)}
+在混合专家模型中,y可以是连续的,也可以是离散的,因此
+该模型既可以解决回归问题,又可以解决分类问题.e.g.应用于多对一的逆函数问题.
+\begin{equation}
+p(y|x, \theta) = \sum_kp(z = k)|x, \theta)p(y|x, z = k, \theta)
+\end{equation}
+\subsubsection{门控函数(Gating function)}
+\begin{equation}
+p(z|x, \theta) = Cat(z|S(V^Tx))
+\end{equation}
+
+\subsection{EM算法}
+\subsubsection{似然函数}
+\begin{enumerate}
+\item 不完全数据似然函数
+\begin{equation}
+L(D|\theta) = \prod_{n=1}^Np(x_n|\theta)
+= \prod_{n=1}^N[\sum_{z_n}p(x_n, z_n|\theta)] 
+\end{equation}
+\item 不完全数据对数似然函数
+\begin{equation}
+logL(D|\theta) = \sum_{n=1}^Nlogp(x_n|\theta)
+= \sum_{n=1}^Nlog[\sum_{z_n}p(x_n, z_n|\theta)] 
+\end{equation}
+
+\item 完全数据似然函数
+\begin{equation}
+L(D, Z|\theta) = \prod_{n=1}^N\prod_{k=1}^K[\pi_kp(x_n|\theta_k)]^{z_{nk}}
+\end{equation}
+
+\item 完全数据对数似然函数
+\begin{equation}
+logL(D, Z|\theta) = \sum_{n=1}^N\sum_{k=1}^K[z_{nk}log\pi_kp(x_n|\theta_k)
+] 
+\end{equation}
+
+\item 辅助函数(期望充分统计)
+\begin{equation}
+Q(\theta, \theta^{t-1}) = E(logL(D,Z)|\theta, \theta^{t-1}))
+= \sum_{n=1}^N\sum_{k=1}^Klog\pi_kp(x_n|\theta_k)E(z_{nk})
+\label{auxiliary_function}
+\end{equation}
+由式\ref{gamma}得
+\begin{equation}
+E(z_{nk}) = \sum_{z_{nk}}z_{nk}p_{nk}
+ = 1 * \gamma_{nk} + 0 * (1 - \gamma_{nk}) = \gamma_{nk}
+\label{e_znk}
+\end{equation}
+最后由式\ref{auxiliary_function}和\ref{e_znk}得
+辅助函数的完整形式
+\begin{equation}
+Q(\theta, \theta^{t-1}) =
+\sum_{n=1}^N\sum_{k=1}^K\gamma_{nk}log[\pi_kp(x_n|\theta_k)]
+\end{equation}
+\end{enumerate}
+
+\section{问题}
+p346 公式11.11
+

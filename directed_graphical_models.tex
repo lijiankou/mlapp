@@ -1,0 +1,98 @@
+\chapter{Directed graphical models}
+\section{贝叶斯网}
+处理复杂系统有两种简单方法，模块化和抽象。机器学习中的概率计算恰好可以完成这
+两项任务，分别通过因式分解和均值实现\cite{frey1998graphical, murphy2012machine}。
+\section{贝叶斯网公式}
+\subsection{链式法则}
+\begin{equation}
+p(x) = p(x_1)\prod_{v = 2}^Vp(x_v|x_{1:v-1})
+\end{equation}
+
+\subsection{马尔克夫链}
+\begin{equation}
+p(x) = p(x_1)\prod_{v = 2}^Vp(x_v|x_{v-1})
+\end{equation}
+
+\subsection{有向图模型}
+\begin{equation}
+p(x|G) = \prod_{v=1}^Vp(x_v|x_{pa(v)})
+\label{bayes_net}
+\end{equation}
+
+\subsection{推理}
+\begin{equation}
+p(x_h|x_v,\theta) = 
+\frac{p(x_h, x_v|\theta)}
+{\sum_{x_h'}p(x_h', x_v|\theta)}
+\end{equation}
+
+\begin{equation}
+p(x_q|x_v,\theta) = \sum_{x_n}p(x_q, x_n|x_v, \theta)
+\end{equation}
+
+\subsection{学习}
+\begin{enumerate}
+\item 极大后验概率
+\begin{equation}
+\hat{\theta} =
+\underset{\theta}{\operatorname{argmax}}
+p(\theta)\prod_{n=1}^Np(x_n|\theta)
+\end{equation}
+\item 完全数据学习一般公式
+\begin{equation}
+p(D|\theta) = \prod_{n=1}^Np(x_n|\theta)
+= \prod_{n=1}^N\prod_{v=1}^Vp(x_{nv}|x_{n, pa(v)}, \theta_v)
+= \prod_{v=1}^Vp(D_v|\theta_v)
+\end{equation}
+
+\item 离散分布图模型学习\\
+离散分布定义：
+\begin{equation}
+Cat(x|\mu) = \prod_{k=1}^K\mu_k^{x_k}
+\label{discrite}
+\end{equation}
+由公式\ref{bayes_net}和\ref{discrite},得
+\begin{equation}
+p(x|G,\theta) = \prod_{v=1}^V\prod_{c=1}^{C_v}\prod_{k=1}^K
+\theta_{vck}^{y_{vck}}
+\end{equation}
+似然函数如下：
+\begin{equation}
+p(D|G,\theta) = \prod_{n=1}^N p(x_n|G,\theta)
+=\prod_{n=1}^N\prod_{v=1}^V\prod_{c=1}^{C_{nv}}\prod_{k=1}^K
+\theta_{vck}^{y_{nvck}}
+\end{equation}
+其中:$y_{nv} = f(pa(x_{nv}))$, f(x)是x到向量的映射,
+向量只有当前状态对应的位置是1,其余是0。简写为
+\begin{equation}
+p(D|G,\theta) = \prod_{n, v, c, k}
+\theta_{vck}^{y_{nvck}}
+\end{equation}
+\end{enumerate}
+\subsection{d-分离}
+\begin{enumerate}
+\item P包含一条链
+\begin{equation}
+p(x,z|y) = \frac{p(x,y,z)}{p(y)}
+= \frac{p(x)p(y|x)p(z|y)}{p(y)}
+= \frac{p(x,y)p(z|y)}{p(y)} = p(x|y)p(z|y)
+\end{equation}
+
+\item P包含fork
+\begin{equation}
+p(x,z|y) = \frac{p(x,y,z)}{p(y)}
+= \frac{p(y)p(x|y)p(z|y)}{p(y)}
+= p(x|y)p(z|y)
+\end{equation}
+\item P包含$v-$结构
+\begin{equation}
+p(x,z|y) = \frac{p(x,y,z)}{p(y)}
+= \frac{p(x)p(z)p(y|x,z)}{p(y)}
+\neq p(x|y)p(z|y)
+\end{equation}
+\end{enumerate}
+\subsection{马尔克夫覆盖}
+\begin{equation}
+mb(t) = ch(t)\cup pa(t)\cup copa(t)
+\end{equation}
+

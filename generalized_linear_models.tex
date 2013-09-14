@@ -1,0 +1,61 @@
+\chapter{Generalized linear models and the exponential family}
+\section{问题}
+\begin{enumerate}
+\item 有什么性质
+\item 充分统计是什么
+\item 什么是广义线性模型
+\item 链接函数与激活函数
+\item 充分统计与矩的关系
+\item 伯努利与logistic回归的关系
+\end{enumerate}
+\section{指数族}
+\begin{enumerate}
+\item 有限充分统计
+\item 具有共轭分布
+\item 广义线性模型的核心
+\item 变分的核心
+\end{enumerate}
+\subsection{定义}
+\begin{equation}
+p(x|\theta) = \frac{1}{Z(\theta)}
+h(x)exp(\theta^T\phi(x))
+\end{equation}
+
+\begin{equation}
+p(x|\theta) =
+h(x)exp(\theta^T\phi(x)-A(\theta))
+\end{equation}
+
+\subsection{对数配分函数}
+
+\begin{equation}
+\frac{dA}{d\theta} = E[\phi(x)]
+\end{equation}
+
+\begin{equation}
+\frac{d^2A}{d\theta^2} = var[\phi(x)]
+\end{equation}
+
+\begin{equation}
+\frac{\partial^2A}{\partial\theta_i\partial\theta_j}=
+E[\phi_i(x)\phi_j(x)] - E[\phi_i(x)]E[\phi_j(x)]
+\end{equation}
+
+\begin{equation}
+\nabla A(\theta) = cov[\phi(x)]
+\end{equation}
+
+\section{sigmoid函数}
+sigmoid函数可以通过伯努利分布链接函数的逆函数推导出来，
+也可以通过产生式模型推导出来.
+
+\section{公式推导}
+\begin{enumerate}
+\item 伯努利分布指数族推导
+\item 离散分布指数族推导
+\item 高斯分布指数族推导
+\item 指数族充分统计推导
+\item 指数族均值推导
+\item 指数族矩推导
+\end{enumerate}
+

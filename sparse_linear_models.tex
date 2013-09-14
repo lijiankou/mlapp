@@ -1,0 +1,29 @@
+\chapter{Sparse linear models}
+
+\section{贝叶斯特征选择}
+\section{钉板模型}
+\begin{equation}
+p(\gamma) = \prod_{m=1}^MBer(\gamma_j|\pi_0)
+= \pi_0^{||\gamma||_0}(1-\pi_0)^{D-||\gamma||_0}
+\end{equation}
+
+\subsection{$l_0$正则}
+\begin{equation}
+L(w) = ||t - Xw||^2_2 + \lambda||w||_0
+\end{equation}
+
+\section{$l_1$正则}
+\subsection{先验}
+\begin{equation}
+p(w|\lambda) = \prod_{m=1}^MLap(w_m|0,\lambda^{-1})
+\end{equation}
+
+\subsection{损失函数}
+\begin{equation}
+L(w) = -\ln p(D|w) - \ln p(w|\lambda) = NLL(w) + \lambda||w||_1
+\end{equation}
+
+\subsection{线性回归中的$l_1$正则}
+\begin{equation}
+L(w) = RSS(w) + \lambda||w||_1
+\end{equation}

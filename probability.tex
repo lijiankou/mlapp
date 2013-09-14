@@ -1,0 +1,76 @@
+\chapter{Probability}
+
+\section{Laplace分布}
+\begin{equation}
+Lap(x|\mu, b) \triangleq \frac{1}{2b}
+exp(-\frac{|x-\mu|}{b})
+\end{equation}
+
+\section{Gamma分布}
+
+\begin{equation}
+Ga(x|a, b) = \frac{b^a}{\Gamma (a)}x^{a-1}e^{-xb}
+\end{equation}
+
+\begin{equation}
+IG(t|a, b) = \frac{b^a}{\Gamma (a)}x^{-a+1}e^{-\frac{b}{x}}
+\end{equation}
+
+
+\section{Gaussian分布}
+\begin{equation}
+\begin{aligned}
+p(D|\mu) = \prod_{n=1}^Np(x_n|\mu) 
+= \frac{1}{(2\pi \sigma^2)^{\frac{N}{2}}}
+exp\{-\frac{1}{2\sigma^2}\sum_{n=1}^N(x_n-\mu)^2\}
+\end{aligned}
+\end{equation}
+
+\begin{equation}
+\begin{aligned}
+p(\mu) = N(\mu|\mu_0, \sigma_0^2)
+= \frac{1}{\sqrt{2\pi}\sigma_0}exp\{-\frac{(\mu-\mu_0)^2}{2\sigma_0^2}\}
+\end{aligned}
+\end{equation}
+
+\begin{equation}
+\begin{aligned}
+\mu_{MLE} = \frac{1}{N} \sum_{n=1}^N{x_n}
+\end{aligned}
+\end{equation}
+
+\begin{equation}
+\begin{aligned}
+p(D|\mu)p(\mu)=
+\frac{1}{(2\pi\sigma^2)^{\frac{D}{2}} (2\pi\sigma_0^2)^{\frac{1}{2}}}
+exp\{  
+-\frac{1}{2}
+[\frac{\sum_nx_n^2-2\mu\sum_{n=1}^Nx_n +N\mu^2}{\sigma^2}
++ \frac{\mu^2-2\mu\mu_0+\mu_0^2}{\sigma_0^2}
+]\} \\
+=\frac{1}{(2\pi\sigma^2)^{\frac{D}{2}} (2\pi\sigma_0^2)^{\frac{1}{2}}}
+exp\{  
+-\frac{1}{2}
+[\frac{\sum_nx_n^2-2N\mu\mu_{MLE} +N\mu^2}{\sigma^2}
++ \frac{\mu^2-2\mu\mu_0+\mu_0^2}{\sigma_0^2}
+]\} \\
+=\frac{1}{(2\pi\sigma^2)^{\frac{D}{2}} (2\pi\sigma_0^2)^{\frac{1}{2}}}
+exp\{  
+-\frac{1}{2}
+[(\frac{N}{\sigma^2} + \frac{1}{\sigma_0^2})\mu^2
+-2(\frac {N\mu_{MLE}} {\sigma^2} + \frac{\mu_0}{\sigma_0} )\mu
++ \frac {\sum_{n=1}^Nx_n^2} {\sigma^2} + \frac{\mu_0^2}{\sigma_0^2}
+]\} \\
+\end{aligned}
+\end{equation}
+
+\section{t分布}
+t分布是无限维高斯分布
+\begin{equation}
+\begin{aligned}
+St(x|\mu, \lambda, v) = 
+\frac{\Gamma(\frac{v+1}{2})}{\Gamma(\frac{v}{2})}
+(\frac{\lambda}{\pi v})^{\frac{1}{2}} 
+[1 + \frac{\lambda(x-\mu)^2}{v}]^{-\frac{v+2}{2}}
+\end{aligned}
+\end{equation}

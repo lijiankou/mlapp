@@ -1,0 +1,81 @@
+\documentclass[graybox, envcountchap]{styles/svmult}
+\usepackage{CJKutf8}
+\author{lijiankoucoco@163.com}
+\title{Machine Learning}
+\usepackage{amssymb,amsmath,bm}
+\DeclareMathAlphabet{\mathcal}{OMS}{cmsy}{m}{n}
+\usepackage{textcomp}
+\newcommand\abs[1]{\left\lvert#1\right\rvert}
+\usepackage{longtable}
+\usepackage{ulem}
+\usepackage{algorithm2e}
+\usepackage{tocbibind}
+\renewcommand{\bibname}{References}
+%\usepackage{mathptmx}        % selects Times Roman as basic font
+\usepackage{helvet}          % selects Helvetica as sans-serif font
+\usepackage{courier}         % selects Courier as typewriter font
+\usepackage{makeidx}         % allows index generation
+\usepackage{graphicx}        % standard LaTeX graphics tool
+\usepackage{multicol}        % used for the two-column index
+\usepackage[bottom]{footmisc}% places footnotes at page bottom
+\usepackage[bookmarksnumbered=true,
+            bookmarksopen=true,
+            colorlinks=true,
+            linkcolor=blue,
+            anchorcolor=blue,
+            citecolor=blue
+           ]{hyperref}
+
+\makeindex             % used for the subject index
+
+\begin{document}
+\begin{CJK}{UTF8}{gkai}
+\frontmatter%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\include{titlepage}
+\include{preface}
+\tableofcontents
+\include{notation}
+\mainmatter%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\include{introduction}
+\include{probability}
+\include{generative_models_for_discrete_data}
+\include{gaussian_models}
+\include{bayesian_statistics}
+\include{frequentist_statistics}
+\include{linear_regression}
+\include{logistic_regression}
+\include{generalized_linear_models}
+\include{directed_graphical_models}
+\include{mixture_models_and_the_em_algorithm}
+\include{latent_linear_models}
+\include{sparse_linear_models}
+\include{kernels}
+\include{gaussian_processes}
+\include{adaptive_basis_function_models}
+\include{markov_and_hidden_markov}
+\include{state_space_models}
+\include{undirected_graphical_models}
+\include{exact_inference_for_GM}
+\include{variational_inference}
+\include{more_variational_inference}
+\include{monte_carlo_inference}
+\include{mcmc_inference}
+\include{clustering}
+\include{graphical_model_structure_learning}
+\include{latent_discrete_models}
+\include{deep_learning}
+
+
+
+\backmatter%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\appendix
+%\include{appendix}
+\include{glossary}
+\printindex
+\clearpage
+\end{CJK}
+
+\bibliographystyle{plain}
+\bibliography{mybib}
+
+\end{document}

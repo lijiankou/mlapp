@@ -1,0 +1,21 @@
+\chapter{Bayesian statistics}
+
+\section{贝叶斯决策论}
+\begin{enumerate}
+\item 后验期望损失
+\begin{equation}
+L(a|x) \triangleq E_{p(y|x)}[L(y,a)] = \sum_yL(y,a)p(y|x)
+\end{equation}
+\item 贝叶斯决策规则
+\begin{equation}
+\delta(x) = \underset{a\in A}{argmin}L(a|x)
+\end{equation}
+\item 0-1损失
+\begin{equation}
+L(y,a) = I(y \neq a) = 
+\begin{cases}
+0 & \text{ if } a = y\\ 
+1 & \text{ if } a \neq y
+\end{cases}
+\end{equation}
+\end{enumerate}
